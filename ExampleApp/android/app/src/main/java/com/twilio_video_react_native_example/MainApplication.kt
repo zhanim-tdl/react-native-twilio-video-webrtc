@@ -1,4 +1,4 @@
-package com.awesomeproject
+package com.twilio_video_react_native_example
 
 import android.app.Application
 import com.facebook.react.PackageList
