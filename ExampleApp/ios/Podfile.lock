@@ -1808,7 +1808,7 @@ PODS:
     - Yoga
   - react-native-twilio-video-webrtc (3.2.1):
     - React
-    - TwilioVideo (~> 4.6)
+    - TwilioVideo (~> 5.10.0)
   - React-NativeModulesApple (0.81.0):
     - boost
     - DoubleConversion
@@ -2342,7 +2342,7 @@ PODS:
     - SocketRocket
     - Yoga
   - SocketRocket (0.7.1)
-  - TwilioVideo (4.6.3)
+  - TwilioVideo (5.10.0)
   - Yoga (0.0.0)
 
 DEPENDENCIES:
@@ -2621,7 +2621,7 @@ SPEC CHECKSUMS:
   React-Mapbuffer: ed316571f8a6368a044c166dd62db3ff9a19ade9
   React-microtasksnativemodule: 7349a9210ff1fe97f54025fbda2496ed9a2d43cd
   react-native-safe-area-context: 4fe3c427e047bc2c1b447bd4ec9a92969a4a7d00
-  react-native-twilio-video-webrtc: f7ed5f534333f4ec96ede46ec8c4a0d85d9ba8b0
+  react-native-twilio-video-webrtc: 1c2ac2d9fe037bef422c1249183c92b62f704aaa
   React-NativeModulesApple: 9c2ece8c6e423b2a13c9c50d2ed25953379cbe4e
   React-oscompat: 34f3d3c06cadcbc470bc4509c717fb9b919eaa8b
   React-perflogger: a1edb025fd5d44f61bf09307e248f7608d7b2dcf
@@ -2654,7 +2654,7 @@ SPEC CHECKSUMS:
   ReactCommon: 5ee89f5eec706805c432ed5b598adcd4e5aaa088
   RNPermissions: 483a818c9a6ad73a38dbd5835ee02d35ecbd74ef
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
-  TwilioVideo: 4afaac028c5886f2f3b313a9fcc146a6b7ca34e2
+  TwilioVideo: 0143285400b8e072b9a645c5bd71ec09233b8514
   Yoga: be78ddad0c56d06a5e41eaef4bfbbd49b86a4d07
 
 PODFILE CHECKSUM: 9f72af4700db1ed0f2f3203b49f072c7a41695c6
