@@ -78,11 +78,11 @@ android {
     compileSdk rootProject.ext.compileSdkVersion
 
    compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
-    }
-        
-    namespace "com.twilio_video_react_native_example"
+
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+   }
+    namespace "com.awesomeproject"
     defaultConfig {
         applicationId "com.twilio_video_react_native_example"
         minSdkVersion rootProject.ext.minSdkVersion

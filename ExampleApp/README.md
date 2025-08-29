@@ -1,97 +1,99 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# ExampleApp – React Native Twilio Video Demo
 
-# Getting Started
+A sample React Native application that demonstrates how to join a Twilio Programmable Video room using the [`react-native-twilio-video-webrtc`](https://github.com/blackuy/react-native-twilio-video-webrtc) package.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+---
 
-## Step 1: Start Metro
+## 1. Prerequisites
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+• **Node ≥ 18**, **Yarn ≥ 1.22**  
+• **Java ≥ 11** + Android SDK (Android Studio)  
+• **Xcode 14+** with Command-line tools (macOS / iOS only)  
+• A **Twilio Account** with a Video-enabled project and an **API Key / Secret** ([signup](https://www.twilio.com/try-twilio)).
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+> Follow the official React Native [environment setup guide](https://reactnative.dev/docs/environment-setup) before continuing.
 
-```sh
-# Using npm
-npm start
+---
 
-# OR using Yarn
+## 2. Clone & Install
+
+```bash
+# clone the repository
+$ git clone https://github.com/zhanim-tdl/react-native-twilio-video-webrtc.git
+$ cd react-native-twilio-video-webrtc/ExampleApp
+
+# install JS dependencies
+yarn install
+
+# iOS – install CocoaPods (first run or native deps changed)
+cd ios
+pod install    
+cd ..
+```
+
+---
+
+## 3. Add Your Twilio Access Token
+
+Open `src/access-token.ts` and replace the placeholder with a **valid Programmable Video Access Token**.
+
+```ts
+// src/access-token.ts
+export const token = "PASTE_YOUR_TWILIO_ACCESS_TOKEN_HERE";
+```
+
+### How do I get a token?
+The quickest way is with the Twilio CLI token plugin:
+
+```bash
+# install Twilio CLI (if you don't have it yet)
+npm install -g twilio-cli
+
+twilio login   # one-time, opens browser for auth
+
+twilio plugins:install @twilio-labs/plugin-token
+
+twilio token:video --identity=<your-username>
+```
+
+Copy the JWT that is printed and paste it into `access-token.ts`.
+
+For more details see the Twilio docs: [Generate CLI](https://www.twilio.com/docs/video/tutorials/user-identity-access-tokens#generate-cli).
+
+> After you have pasted a valid token and built the app, launch it on your device/emulator and tap **Join Room**. The first time you join, the OS will ask for camera and microphone access—make sure to **allow** both prompts so video and audio work correctly.
+
+---
+
+## 4. Start Metro Bundler
+
+```bash
 yarn start
 ```
 
-## Step 2: Build and run your app
+Metro must be running in one terminal while you build the native app.
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+---
+
+## 5. Run the App
 
 ### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
+```bash
 yarn android
 ```
+This builds and installs the app on the connected device or emulator.
 
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
+### iOS (macOS only)
+```bash
 yarn ios
 ```
+This opens the iOS simulator and runs the app. Ensure that the `ExampleApp` scheme is selected in Xcode if you choose to run from the IDE.
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+---
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## 6. Learn More
 
-## Step 3: Modify your app
+• React Native Documentation – <https://reactnative.dev>  
+• Twilio Programmable Video Docs – <https://www.twilio.com/docs/video>  
+• react-native-twilio-video-webrtc GitHub – <https://github.com/blackuy/react-native-twilio-video-webrtc>
 
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Happy coding! 🎉
