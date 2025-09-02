@@ -94,6 +94,6 @@ This opens the iOS simulator and runs the app. Ensure that the `ExampleApp` sche
 
 • React Native Documentation – <https://reactnative.dev>  
 • Twilio Programmable Video Docs – <https://www.twilio.com/docs/video>  
-• react-native-twilio-video-webrtc GitHub – <https://github.com/blackuy/react-native-twilio-video-webrtc>
+• react-native-twilio-video-webrtc Documentation – <https://github.com/zhanim-tdl/react-native-twilio-video-webrtc/tree/master/docs>
 
 Happy coding! 🎉
