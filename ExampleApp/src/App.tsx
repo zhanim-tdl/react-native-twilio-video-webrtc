@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import {
     View,
     Text,
-    TextInput,
     TouchableOpacity,
     PermissionsAndroid,
     Platform,
@@ -15,12 +14,16 @@ import {
 import { check, PERMISSIONS, request } from "react-native-permissions";
 import { styles } from "./styles";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { token } from "./access-token";
 
 const Example = () => {
     const [isAudioEnabled, setIsAudioEnabled] = useState(true);
     const [status, setStatus] = useState("disconnected");
     const [videoTracks, setVideoTracks] = useState(new Map());
-    const [token, setToken] = useState("");
+    const [roomDetails, setRoomDetails] = useState({
+        roomName: "",
+        roomSid: "",
+    });
     const twilioRef = useRef<any>(null);
     const _requestAudioPermission = () => {
         return PermissionsAndroid.request(
@@ -82,7 +85,13 @@ const Example = () => {
         twilioRef.current?.flipCamera();
     };
 
-    const _onRoomDidConnect = () => {
+    const _onRoomDidConnect = (event: any) => {
+        if(event.roomName) {
+        setRoomDetails({
+                roomName: event.roomName,
+                roomSid: event.roomSid,
+            });
+        }
         setStatus("connected");
     };
 
@@ -116,23 +125,20 @@ const Example = () => {
             {status === "disconnected" && (
                 <View>
                     <Text style={styles.welcome}>React Native Twilio Video</Text>
-                    <TextInput
-                        style={styles.input}
-                        autoCapitalize="none"
-                        value={token}
-                        editable={true}
-                        multiline
-                        onChangeText={(text) => setToken(text)}
-                        scrollEnabled
-                        selectionColor="#5E6AD2"
-                    />
+
                     <TouchableOpacity style={styles.button} onPress={_onConnectButtonPress}>
-                        <Text style={{ fontSize: 12 }}>Connect</Text>
+                        <Text style={{ fontSize: 12 }}>Join Room</Text>
                     </TouchableOpacity>
                 </View>
             )}
 
             {(status === "connected" || status === "connecting") && (
+                <>
+                <View style={{  padding:20, alignItems: "center" }}>
+                    <Text style={{ fontSize: 12 }}>Room Name: {roomDetails.roomName}</Text>
+                    <Text style={{ fontSize: 12 }}>Room Sid: {roomDetails.roomSid}</Text>
+                </View>
+
                 <View style={styles.callContainer}>
                     {status === "connected" && (
                         <View style={styles.remoteGrid}>
@@ -159,9 +165,9 @@ const Example = () => {
                             <Text style={{ color: "#fff", fontSize: 12 }}>Flip</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
-            )}
-
+                    </View>
+                    </>
+                )}
             <TwilioVideo
                 ref={twilioRef as any}
                 onRoomDidConnect={_onRoomDidConnect}
