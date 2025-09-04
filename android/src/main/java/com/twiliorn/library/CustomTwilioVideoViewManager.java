@@ -60,6 +60,8 @@ public class CustomTwilioVideoViewManager extends SimpleViewManager<CustomTwilio
     private static final int PUBLISH_VIDEO = 13;
     private static final int PUBLISH_AUDIO = 14;
     private static final int SET_REMOTE_AUDIO_PLAYBACK = 15;
+    private static final int START_SCREEN_SHARE = 16;
+    private static final int STOP_SCREEN_SHARE  = 17;
 
     @Override
     public String getName() {
@@ -146,6 +148,12 @@ public class CustomTwilioVideoViewManager extends SimpleViewManager<CustomTwilio
                 Boolean enabled = args.getBoolean(1);
                 view.setRemoteAudioPlayback(participantSid, enabled);
                 break;
+            case START_SCREEN_SHARE:
+                view.requestScreenShare();
+                break;
+            case STOP_SCREEN_SHARE:
+                view.stopScreenShare();
+                break;
         }
     }
 
@@ -203,6 +211,8 @@ public class CustomTwilioVideoViewManager extends SimpleViewManager<CustomTwilio
                 .put("toggleRemoteSound", TOGGLE_REMOTE_SOUND)
                 .put("toggleBluetoothHeadset", TOGGLE_BLUETOOTH_HEADSET)
                 .put("sendString", SEND_STRING)
+                .put("startScreenShare", START_SCREEN_SHARE)
+                .put("stopScreenShare", STOP_SCREEN_SHARE)
                 .build();
     }
 }

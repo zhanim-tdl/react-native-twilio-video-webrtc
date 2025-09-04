@@ -20,6 +20,7 @@ const Example = () => {
     const [isAudioEnabled, setIsAudioEnabled] = useState(true);
     const [status, setStatus] = useState("disconnected");
     const [videoTracks, setVideoTracks] = useState(new Map());
+    console.log("🚀 ~ Example ~ videoTracks:", videoTracks)
     const [roomDetails, setRoomDetails] = useState({
         roomName: "",
         roomSid: "",
@@ -120,6 +121,14 @@ const Example = () => {
         });
     };
 
+    const _onStartScreenShare = () => {
+        twilioRef.current?.startScreenShare();
+    };
+
+    const _onStopScreenShare = () => {
+        twilioRef.current?.stopScreenShare();
+    };
+
     return (
         <SafeAreaView style={[styles.container]}>
             {status === "disconnected" && (
@@ -163,6 +172,12 @@ const Example = () => {
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.optionButton} onPress={_onFlipButtonPress}>
                             <Text style={{ color: "#fff", fontSize: 12 }}>Flip</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.optionButton} onPress={_onStartScreenShare}>
+                            <Text style={{ color: "#fff", fontSize: 12 }}>Start Screen Share</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.optionButton} onPress={_onStopScreenShare}>
+                            <Text style={{ color: "#fff", fontSize: 12 }}>Stop Screen Share</Text>
                         </TouchableOpacity>
                     </View>
                     </View>
