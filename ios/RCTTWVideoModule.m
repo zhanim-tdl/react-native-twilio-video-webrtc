@@ -81,6 +81,7 @@ TVIVideoFormat *RCTTWVideoModuleCameraSourceSelectVideoFormatBySize(
 @property(strong, nonatomic) TVILocalParticipant *localParticipant;
 @property(strong, nonatomic) TVIRoom *room;
 @property(nonatomic) BOOL listening;
+@property(strong, nonatomic) TVIVideoView *localVideoView;
 
 @end
 
@@ -129,6 +130,7 @@ RCT_EXPORT_MODULE();
 }
 
 - (void)addLocalView:(TVIVideoView *)view {
+  self.localVideoView = view;
   if (self.localVideoTrack != nil) {
     [self.localVideoTrack addRenderer:view];
   }
@@ -145,6 +147,9 @@ RCT_EXPORT_MODULE();
 - (void)removeLocalView:(TVIVideoView *)view {
   if (self.localVideoTrack != nil) {
     [self.localVideoTrack removeRenderer:view];
+  }
+  if (self.localVideoView == view) {
+    self.localVideoView = nil;
   }
 }
 
@@ -200,6 +205,12 @@ RCT_EXPORT_METHOD(startLocalVideo) {
   self.localVideoTrack = [TVILocalVideoTrack trackWithSource:self.camera
                                                      enabled:NO
                                                         name:@"camera"];
+
+  // Reconnect the local video view if it exists
+  if (self.localVideoView != nil) {
+    [self.localVideoTrack addRenderer:self.localVideoView];
+    [self updateLocalViewMirroring:self.localVideoView];
+  }
 }
 
 - (void)startCameraCapture:(NSString *)cameraType {
@@ -320,11 +331,23 @@ RCT_REMAP_METHOD(setLocalAudioEnabled,
       TVILocalParticipant *localParticipant = self.room.localParticipant;
       [localParticipant publishVideoTrack:self.localVideoTrack];
 
+      // Ensure the local renderer is attached in case it was removed earlier.
+      if (self.localVideoView != nil &&
+          ![self.localVideoTrack.renderers containsObject:self.localVideoView]) {
+        [self.localVideoTrack addRenderer:self.localVideoView];
+        [self updateLocalViewMirroring:self.localVideoView];
+      }
+
       [self startCameraCapture:cameraType];
     } else {
       [self.localVideoTrack setEnabled:enabled];
       TVILocalParticipant *localParticipant = self.room.localParticipant;
       [localParticipant unpublishVideoTrack:self.localVideoTrack];
+
+      // Detach any existing renderers before stopping capture and releasing the track.
+      if (self.localVideoView != nil) {
+        [self.localVideoTrack removeRenderer:self.localVideoView];
+      }
 
       [self.camera stopCapture];
       self.localVideoTrack = nil;
